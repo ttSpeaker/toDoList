@@ -1,0 +1,20 @@
+
+body {
+    background-color:rgb(238, 238, 238);
+ }
+ .barra-lateral {
+    background-color:rgb(219, 219, 219);
+    padding-left: 25px;
+    /* height: 100vh; */
+ }
+ .flex-container {
+     display: inline-flex;
+     flex-wrap: wrap;
+ }
+ .card {
+     margin: 15px 15px;
+     height: 200px;
+ }
+#sectionTitle{
+    margin: 15px 15px;
+}
