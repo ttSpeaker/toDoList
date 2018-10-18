@@ -1,3 +1,4 @@
+
 var home = [
     {
         "title": "to do home title",
@@ -8,7 +9,7 @@ var home = [
     {
         "title": "to do home title",
         "content":"Hello World!!",
-        "done":false,
+        "done":true,
         "id": 1
     },
     {
