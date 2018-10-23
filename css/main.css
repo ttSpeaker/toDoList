@@ -5,7 +5,6 @@ body {
  .barra-lateral {
     background-color:rgb(219, 219, 219);
     padding-left: 25px;
-    /* height: 100vh; */
  }
  .flex-container {
      display: inline-flex;
