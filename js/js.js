@@ -33,7 +33,7 @@ function findList(element) {
         case "office-addButton":
             return office;
             break;
-        case "other-addButton":
+        case "others-addButton":
             return others;
             break;
     }
