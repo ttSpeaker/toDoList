@@ -59,23 +59,23 @@
 
     <div class="modal" tabindex="-1" role="dialog" id="checkModal">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Confirm delete ToDo</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm delete ToDo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the ToDo?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="delete">Delete</button>
+                </div>
             </div>
-            <div class="modal-body">
-              <p>Are you sure you want to delete the ToDo?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" id="delete">Delete</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
 
 
@@ -84,7 +84,7 @@
     <div class="row">
         <div class="col-2 barra-lateral">
             <div class="user">
-                <h5>Usuario Nombre</h5>
+                <h5 id="userName">Usuario Nombre</h5>
             </div>
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
@@ -95,6 +95,14 @@
                     aria-controls="v-pills-others" aria-selected="false">Others</a>
                 <!-- <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
                     aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
+                <div class="" style="width: 18rem;" id="addButton">
+                    <a href="#" class="btn btn-secondary addTodo">New ToDo</a>
+                </div>
+
+                <div class="" style="width: 18rem;" id="addListButton">
+                    <a href="#" class="btn btn-secondary addTodo">New List</a>
+                </div>
+
             </div>
         </div>
         <div class="col-10">
@@ -102,17 +110,14 @@
             <div class="tab-content" id="v-pills-tabContent">
 
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                    <div class="row">
-                        <h5 id="sectionTitle">Home:</h5>
-                    </div>
-                    <div class="flex-container toDosList">
 
-                        <div class="card text-center" style="width: 18rem;" id="home-addButton">
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary addTodo">New ToDo</a>
-                            </div>
+                    <div class="toDosList">
+                        <div class="flex-container notDone">
+
                         </div>
+                        <div class="flex-container done">
 
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-office" role="tabpanel" aria-labelledby="v-pills-office-tab">
@@ -150,14 +155,33 @@
 
     </div>
 
-    <div id='toDoTemplate' class="toDoCardContainer card text-center" style="width: 18rem; display:none" data-task-id="template-id">
+    <div id='' class="toDoCardContainer card text-center" style="width: 18rem; display:none" data-task-id="template-id">
         <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-content"></p>
+            <div class="card-title h5">New ToDo
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <a href="#" class="btn btn-secondary doneToDo card-btn">Done</a>
             <a href="#" class="btn btn-danger removeTodo">Delete ToDo</a>
         </div>
     </div>
+
+    <div id="toDoTemplate" class="toDoCardContainer card" style="width: 18rem; display:none; height: 140px;">
+        <div class="card-body">
+            <button type="button" class="removeTodo close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h5 class="card-title">Card title</h5>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            <!-- <a href="#" class="card-link">Card link</a> -->
+            <!-- <a href="#" class="card-link">Another link</a> -->
+            <a href="#" class="btn btn-secondary doneToDo card-btn">Done</a>
+
+        </div>
+    </div>
+
 
     <script src="js/js.js"></script>
 </body>

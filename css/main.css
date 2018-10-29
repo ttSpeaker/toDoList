@@ -5,6 +5,7 @@ body {
  .barra-lateral {
     background-color:rgb(219, 219, 219);
     padding-left: 25px;
+    height: 100%;
  }
  .flex-container {
      display: inline-flex;
@@ -19,3 +20,9 @@ body {
     margin: 15px 15px;
 }
 
+#userName {
+    margin: 12px 0px;
+}
+ .addToDo {
+     margin: 6px 0px;
+ }
