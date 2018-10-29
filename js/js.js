@@ -1,7 +1,7 @@
 
 
 var globalID = 8;
-var currentList = home;
+var currentList = "home"
 function addToDotoDOM(listName, list, i) {
     var item = $('#toDoTemplate').clone();
     item.attr("data-task-id", list[i].id);
@@ -28,101 +28,96 @@ function findElement(list, passedId) {
         }
     }
 }
-function findList(element) {
-    switch (element.parent().parent().attr("id")) {
-        case "home-addButton":
+function findList() {
+    switch (currentList) {
+        case "home":
             return home;
-        case "office-addButton":
+        case "office":
             return office;
-            break;
-        case "others-addButton":
+        case "others":
             return others;
-            break;
     }
+}
 
-}
-function findListName(element) {
-    switch (element.parent().parent().attr("id")) {
-        case "home-addButton":
-            return "home";
-            break;
-        case "office-addButton":
-            return "office";
-            break;
-        case "others-addButton":
-            return "others";
-            break;
-    }
-}
 $(document).ready(function () {
 
     loadToDos("home", home);
     loadToDos("office", office);
 
     $(".addToDo").click(function () {
-        var list = currentList;
-        var listName = findListName($(this));
-        $('#loginModal').modal('show');
+        var list = findList();
+        var listName = currentList;
+        $('#newToDoModal').modal('show');
         var $newToDoForm = $('#newTodoForm');
         $newToDoForm.unbind('submit').bind('submit', function () {
             event.preventDefault();
             var newToDoTitle = $("#todoTitle").val();
-            var newToDoContent = $("#todoContent").val();
-            $('#loginModal').modal('hide');
-            list.push({
-                "title": newToDoTitle,
-                "content": newToDoContent,
-                "done": false,
-                "id": globalID
-            });
-            addToDotoDOM(listName, list, list.length - 1);
-            globalID++;
+            if (newToDoTitle != "") {
+                var newToDoContent = $("#todoContent").val();
+                list.push({
+                    "title": newToDoTitle,
+                    "content": newToDoContent,
+                    "done": false,
+                    "id": globalID
+                });
+                addToDotoDOM(listName, list, list.length - 1);
+                globalID++;
+            }
+            $('#newToDoModal').modal('hide');
         });
     });
-    $(".toDosList").on("click", "a.removeTodo", function () {
+    $(".toDosList").on("click", ".removeTodo", function () {
         $('#checkModal').modal('show');
         var $delete = $("#delete");
         var id = $(this).closest("div.toDoCardContainer");
         $delete.unbind("click").on("click", function () {
-            switch (id.parent().parent().attr("id")) {
-                case "v-pills-home":
-                    var list = home;
-                    break;
-                case "v-pills-office":
-                    var list = office;
-                    break;
-                case "v-pills-others":
-                    var list = others;
-                    break;
-            }
+            var list = findList();
             var index = findElement(list, id.attr("data-task-id"));
             list.splice(index, 1);
-            id.hide();
+            id.remove();
 
         });
 
     });
+    $(".toDosList").on("click", ".edit", function () {
+        var $id = $(this).closest("div.toDoCardContainer");
+        var list = findList();
+        var index = findElement(list, $id.attr("data-task-id"));
+        var modal = $('#editToDoModal');
+        console.log(modal);
 
+        modal.find("#editTitle").attr("placeholder", list[index].title);
+        modal.find("#editContent").attr("placeholder", list[index].content);
+        modal.modal('show');
+        var $editToDoForm = $("#editTodoForm")
+        $editToDoForm.unbind('submit').bind('submit', function () {
+            event.preventDefault();
+            var newToDoTitle = $("#editTitle").val();
+            var newToDoContent = $("#editContent").val();
+            modal.modal('hide');
+            list[index].title = newToDoTitle;
+            list[index].content = newToDoContent;
+            $id.find('.card-title').text(newToDoTitle);
+        });
+    });
     $(".toDosList").on("click", "a.doneToDo", function () {
         var $id = $(this).closest("div.toDoCardContainer");
-        switch ($id.parents('.tab-pane').attr("id")) {
-            case "v-pills-home":
-                var list = home;
-                break;
-            case "v-pills-office":
-                var list = office;
-                break;
-            case "v-pills-others":
-                var list = others;
-                break;
-        }
+        var list = findList();
         var index = findElement(list, $id.attr("data-task-id"));
+        if (!list[index].done) {
+            list[index].done = true;
+            $(this).attr("class", "btn btn-success doneToDo card-btn");
+            var doneItem = $id.clone();
+            $id.closest(".tab-pane").find(".done").prepend(doneItem);
+            $id.remove();
+        } else {
+            list[index].done = false;
+            $(this).attr("class", "btn btn-secondary doneToDo card-btn");
+            var doneItem = $id.clone();
+            $id.closest(".tab-pane").find(".notDone").prepend(doneItem);
+            $id.remove();
+        }
 
-        list[index].done = true;
-        $(this).attr("class", "btn btn-success doneToDo card-btn");
-        $id.remove();
-        console.log($id.closest('.toDosList').parent())
-        //.find('.done').append($id);
     });
 
 });

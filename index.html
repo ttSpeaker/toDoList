@@ -18,7 +18,44 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" data-show="true">
+    <div class="modal fade" id="editToDoModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" data-show="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">Edit ToDo
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editTodoForm">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ToDo title:</label>
+                            <input type="title" class="form-control" id="editTitle" aria-describedby="" name="title"
+                                placeholder="">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Ingrese su nombre de usuario.</small> -->
+                        </div>
+                        <div class="form-group login-group">
+                            <label for="toDoContent">Content:</label>
+                            <input type="content" class="form-control" id="editContent" placeholder="Content..." name="content">
+                        </div>
+                        <!-- <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div> -->
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" aria-label="Close">Submit</button>
+                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="newToDoModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" data-show="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">New ToDo
@@ -112,9 +149,11 @@
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
                     <div class="toDosList">
+                            <div class="row h5 separador">To Dos:</div>
                         <div class="flex-container notDone">
 
                         </div>
+                        <div class="row h5 separador">Done:</div>
                         <div class="flex-container done">
 
                         </div>
@@ -155,17 +194,7 @@
 
     </div>
 
-    <div id='' class="toDoCardContainer card text-center" style="width: 18rem; display:none" data-task-id="template-id">
-        <div class="card-body">
-            <div class="card-title h5">New ToDo
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <a href="#" class="btn btn-secondary doneToDo card-btn">Done</a>
-            <a href="#" class="btn btn-danger removeTodo">Delete ToDo</a>
-        </div>
-    </div>
+
 
     <div id="toDoTemplate" class="toDoCardContainer card" style="width: 18rem; display:none; height: 140px;">
         <div class="card-body">
@@ -176,8 +205,9 @@
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
             <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
             <!-- <a href="#" class="card-link">Card link</a> -->
-            <!-- <a href="#" class="card-link">Another link</a> -->
             <a href="#" class="btn btn-secondary doneToDo card-btn">Done</a>
+            <a href="#" class="card-link edit">Edit</a>
+          
 
         </div>
     </div>
