@@ -84,8 +84,7 @@ $(document).ready(function () {
         var list = findList();
         var index = findElement(list, $id.attr("data-task-id"));
         var modal = $('#editToDoModal');
-        console.log(modal);
-
+     
         modal.find("#editTitle").attr("placeholder", list[index].title);
         modal.find("#editContent").attr("placeholder", list[index].content);
         modal.modal('show');
@@ -117,9 +116,7 @@ $(document).ready(function () {
             $id.closest(".tab-pane").find(".notDone").prepend(doneItem);
             $id.remove();
         }
-
     });
-
 });
 
 
