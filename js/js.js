@@ -1,4 +1,21 @@
+// var home;
+// var office;
+// var others;
 
+// if (localStorage.home == undefined) {
+//     console.log("HOME")
+//     localStorage.setItem = ("home", homeOriginal);
+// }
+// if (localStorage.office == undefined) {
+//     localStorage.setItem = ("office", officeOriginal);
+// }
+// if (localStorage.others == undefined) {
+//     localStorage.setItem = ("others", othersOriginal);
+// }
+
+// home = localStorage.getItem("home");
+// office = localStorage.getItem("office");
+// others = localStorage.getItem("others");
 
 var globalID = 8;
 var currentList = "home"
@@ -38,18 +55,28 @@ function findList() {
         case "others":
             return others;
     }
-    return null;
 }
 
 $(document).ready(function () {
 
     loadToDos("home", home);
     loadToDos("office", office);
+    loadToDos("others", others);
+    localStorage.setItem("home", home);
 
+    $("#v-pills-home-tab").click(function () {
+        currentList = "home"
+    });
+    $("#v-pills-office-tab").click(function () {
+        currentList = "office"
+    });
+    $("#v-pills-others-tab").click(function () {
+        currentList = "others"
+    });
 
     $(function () {
         $('[data-toggle="popover"]').popover()
-    })
+    });
 
     $(".addToDo").click(function () {
         var list = findList();
@@ -74,7 +101,8 @@ $(document).ready(function () {
 
             $(function () {
                 $('[data-toggle="popover"]').popover();
-            })
+            });
+
         });
     });
 
