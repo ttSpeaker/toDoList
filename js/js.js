@@ -7,7 +7,8 @@ function addToDotoDOM(listName, list, i) {
     item.attr("data-task-id", list[i].id);
     item.attr('id', '');
     item.find('.card-title').text(list[i].title);
-    item.find('.card-content').text(list[i].content);
+    item.find('.popoverFinder').attr("title", list[i].title);
+    item.find('.popoverFinder').attr("data-content", list[i].content);
     if (list[i].done == true) {
         item.find('.doneTodo').attr("class", "btn btn-success doneToDo card-btn")
     }
@@ -37,12 +38,18 @@ function findList() {
         case "others":
             return others;
     }
+    return null;
 }
 
 $(document).ready(function () {
 
     loadToDos("home", home);
     loadToDos("office", office);
+
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
 
     $(".addToDo").click(function () {
         var list = findList();
@@ -64,8 +71,13 @@ $(document).ready(function () {
                 globalID++;
             }
             $('#newToDoModal').modal('hide');
+
+            $(function () {
+                $('[data-toggle="popover"]').popover();
+            })
         });
     });
+
     $(".toDosList").on("click", ".removeTodo", function () {
         $('#checkModal').modal('show');
         var $delete = $("#delete");
@@ -84,9 +96,9 @@ $(document).ready(function () {
         var list = findList();
         var index = findElement(list, $id.attr("data-task-id"));
         var modal = $('#editToDoModal');
-     
-        modal.find("#editTitle").attr("placeholder", list[index].title);
-        modal.find("#editContent").attr("placeholder", list[index].content);
+
+        modal.find("#editTitle").val(list[index].title);
+        modal.find("#editContent").val(list[index].content);
         modal.modal('show');
         var $editToDoForm = $("#editTodoForm")
         $editToDoForm.unbind('submit').bind('submit', function () {
@@ -97,6 +109,8 @@ $(document).ready(function () {
             list[index].title = newToDoTitle;
             list[index].content = newToDoContent;
             $id.find('.card-title').text(newToDoTitle);
+            $id.find('.popoverFinder').attr("data-original-title", newToDoTitle);
+            $id.find('.popoverFinder').attr("data-content", newToDoContent);
         });
     });
     $(".toDosList").on("click", "a.doneToDo", function () {
