@@ -7,7 +7,7 @@ function test1() {
 function test2() {
     let resultado = findList("kjasdk lajsdlkjasd");
 
-    return resultado == null;
+    return resultado == nul l;
 }
 
 $(document).ready(function () {

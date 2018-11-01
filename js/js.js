@@ -1,21 +1,5 @@
-// var home;
-// var office;
-// var others;
 
-// if (localStorage.home == undefined) {
-//     console.log("HOME")
-//     localStorage.setItem = ("home", homeOriginal);
-// }
-// if (localStorage.office == undefined) {
-//     localStorage.setItem = ("office", officeOriginal);
-// }
-// if (localStorage.others == undefined) {
-//     localStorage.setItem = ("others", othersOriginal);
-// }
 
-// home = localStorage.getItem("home");
-// office = localStorage.getItem("office");
-// others = localStorage.getItem("others");
 
 var globalID = 8;
 var currentList = "home"
@@ -98,33 +82,29 @@ $(document).ready(function () {
                 globalID++;
             }
             $('#newToDoModal').modal('hide');
-
             $(function () {
                 $('[data-toggle="popover"]').popover();
             });
-
         });
     });
 
     $(".toDosList").on("click", ".removeTodo", function () {
         $('#checkModal').modal('show');
         var $delete = $("#delete");
-        var id = $(this).closest("div.toDoCardContainer");
+        var $id = $(this).closest("div.toDoCardContainer");
         $delete.unbind("click").on("click", function () {
             var list = findList();
-            var index = findElement(list, id.attr("data-task-id"));
+            var index = findElement(list, $id.attr("data-task-id"));
             list.splice(index, 1);
-            id.remove();
-
+            $id.remove();
         });
-
     });
+
     $(".toDosList").on("click", ".edit", function () {
         var $id = $(this).closest("div.toDoCardContainer");
         var list = findList();
         var index = findElement(list, $id.attr("data-task-id"));
         var modal = $('#editToDoModal');
-
         modal.find("#editTitle").val(list[index].title);
         modal.find("#editContent").val(list[index].content);
         modal.modal('show');
@@ -141,6 +121,7 @@ $(document).ready(function () {
             $id.find('.popoverFinder').attr("data-content", newToDoContent);
         });
     });
+
     $(".toDosList").on("click", "a.doneToDo", function () {
         var $id = $(this).closest("div.toDoCardContainer");
         var list = findList();
