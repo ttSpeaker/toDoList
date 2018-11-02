@@ -1,5 +1,6 @@
 
-var home = [
+
+var homeOriginal = [
     {
         "title": "to do home title",
         "content":"Hello World!!",
@@ -27,7 +28,7 @@ var home = [
     
   ]
 
-  var office = [
+  var officeOriginal = [
     {
         "title": "to do office title",
         "content":"Hello World!!",
@@ -54,7 +55,8 @@ var home = [
     }
     
   ]
-  var others = [];
+  var othersOriginal = [];
+  
 
   
 // var ToDos = [
