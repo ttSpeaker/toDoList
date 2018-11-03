@@ -1,13 +1,18 @@
-
-var globalID = 8;
+var globalID = 0;
 var currentList = "home"
 function addToDotoDOM(listName, list, i) {
     var item = $('#toDoTemplate').clone(); // sacar a funcion aparte
     item.attr("data-task-id", list[i].id);
     item.attr('id', '');
     item.find('.card-title').text(list[i].title);
-    item.find('.popoverFinder').attr("title", list[i].title);
-    item.find('.popoverFinder').attr("data-content", list[i].content);
+    var content = item.find('.popoverFinder');
+    content.attr("title", list[i].title);
+    content.attr("data-content", list[i].content);
+    content.html(list[i].content);
+    content.shorten({
+        moreText: "",
+        showChars: 15
+    });
     if (list[i].done) {
         item.find('.doneTodo').attr("class", "btn btn-success doneToDo card-btn")
     }
@@ -17,10 +22,12 @@ function addToDotoDOM(listName, list, i) {
 
 function loadToDos(completeList) {
     for (var j = 0; j < completeList.length; j++) {
-        for (var i = completeList[j][1].length - 1; i >= 0; i--) {
+        for (var i = 0; i < completeList[j][1].length; i++) {
             addToDotoDOM(completeList[j][0], completeList[j][1], i);
+            completeList[j][1][i].id>globalID? globalID=completeList[j][1][i].id : globalID=globalID;
         }
     }
+    globalID++;
 }
 
 function findElement(list, passedId) {
@@ -31,17 +38,16 @@ function findElement(list, passedId) {
     }
 }
 function findList() {
-    switch (currentList) {
-        case "home":
-            return home;
-        case "office":
-            return office;
-        case "others":
-            return others;
+    for (var i = 0; i<completeList.length;i++){
+        if (completeList[i][0]==currentList){
+            return completeList[i][1];
+        }
     }
+
 }
 
 if (localStorage.getItem("primeraVez") == undefined) {
+
     localStorage.setItem("primeraVez", "ok");
     localStorage.setItem("home", JSON.stringify(homeOriginal));
     localStorage.setItem("office", JSON.stringify(officeOriginal));
@@ -57,10 +63,15 @@ var completeList = [
 ]
 function setLocalStorage(list) {
     localStorage.setItem(currentList, JSON.stringify(list));
-    console.log(list);
+}
+
+function refreshPopovers() {
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
 }
 $(document).ready(function () {
-
+    $().maxlength();
 
     loadToDos(completeList);
 
@@ -74,9 +85,8 @@ $(document).ready(function () {
         currentList = "others"
     });
 
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    });
+
+    refreshPopovers();
 
     $(".addToDo").click(function () {
         var list = findList();
@@ -100,9 +110,7 @@ $(document).ready(function () {
             }
 
             $('#newToDoModal').modal('hide');
-            $(function () {
-                $('[data-toggle="popover"]').popover();
-            });
+            refreshPopovers();
         });
 
     });
@@ -137,17 +145,22 @@ $(document).ready(function () {
             list[index].title = newToDoTitle;
             list[index].content = newToDoContent;
             $id.find('.card-title').text(newToDoTitle);
-            $id.find('.popoverFinder').attr("data-original-title", newToDoTitle);
-            $id.find('.popoverFinder').attr("data-content", newToDoContent);
+            var content = $id.find('.popoverFinder');
+            content.attr("data-original-title", newToDoTitle);
+            content.attr("data-content", newToDoContent);
+            // fix new content is not shortened ( need to update dom element in a better way?)
+            content.html(newToDoContent);
+
             setLocalStorage(list);
         });
 
     });
-
+    // no se ejecuta bien despues de usarla una vez.. revisar   
     $(".toDosList").on("click", "a.doneToDo", function () {
         var $id = $(this).closest("div.toDoCardContainer");
         var list = findList();
         var index = findElement(list, $id.attr("data-task-id"));
+        console.log(list[index].title);
         if (!list[index].done) {
             list[index].done = true;
             $(this).attr("class", "btn btn-success doneToDo card-btn");
