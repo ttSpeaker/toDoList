@@ -1,7 +1,7 @@
 var globalID = 0;
 var currentList = "home"
 function addToDotoDOM(listName, list, i) {
-    var item = $('#toDoTemplate').clone(); // sacar a funcion aparte
+    var item = $('#toDoTemplate').clone();
     item.attr("data-task-id", list[i].id);
     item.attr('id', '');
     item.find('.card-title').text(list[i].title);
@@ -24,7 +24,7 @@ function loadToDos(completeList) {
     for (var j = 0; j < completeList.length; j++) {
         for (var i = 0; i < completeList[j][1].length; i++) {
             addToDotoDOM(completeList[j][0], completeList[j][1], i);
-            completeList[j][1][i].id>globalID? globalID=completeList[j][1][i].id : globalID=globalID;
+            completeList[j][1][i].id > globalID ? globalID = completeList[j][1][i].id : globalID = globalID;
         }
     }
     globalID++;
@@ -38,8 +38,8 @@ function findElement(list, passedId) {
     }
 }
 function findList() {
-    for (var i = 0; i<completeList.length;i++){
-        if (completeList[i][0]==currentList){
+    for (var i = 0; i < completeList.length; i++) {
+        if (completeList[i][0] == currentList) {
             return completeList[i][1];
         }
     }
@@ -148,14 +148,11 @@ $(document).ready(function () {
             var content = $id.find('.popoverFinder');
             content.attr("data-original-title", newToDoTitle);
             content.attr("data-content", newToDoContent);
-            // fix new content is not shortened ( need to update dom element in a better way?)
             content.html(newToDoContent);
-
             setLocalStorage(list);
         });
 
     });
-    // no se ejecuta bien despues de usarla una vez.. revisar   
     $(".toDosList").on("click", "a.doneToDo", function () {
         var $id = $(this).closest("div.toDoCardContainer");
         var list = findList();
